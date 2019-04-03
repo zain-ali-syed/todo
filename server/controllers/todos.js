@@ -10,15 +10,15 @@ const getTodosByUserId = async (req, res) =>
 const addTodo =  async (req, res) =>
 {
     const { id } = req.body.user;
-    const {title, notes} = req.body;
-    const todos =  await todosModel.addTodo(id, title, notes);
+    const {title, notes, dueDate} = req.body;
+    const todos =  await todosModel.addTodo(id, title, notes, dueDate);
     res.send(todos);
 }
 
 const editTodo =  async (req, res) =>
 {
-    const {id, title, notes, completed} = req.body;
-    const todos =  await todosModel.editTodo(id, title, notes, completed);
+    const {id, title, notes, completed, dueDate} = req.body;
+    const todos =  await todosModel.editTodo(id, title, notes, completed, dueDate);
     res.send(todos);
 }
 
