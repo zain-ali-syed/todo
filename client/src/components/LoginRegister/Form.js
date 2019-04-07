@@ -47,9 +47,20 @@ const Form = ({
                   Already a member? Please <Link to="/login">login here</Link>
                 </p>
               ) : (
-                <p>
-                  Not a member? Please <Link to="/register">register here</Link>
-                </p>
+                <div>
+                  <p>
+                    Not a member? Please{' '}
+                    <Link to="/register">register here</Link>
+                  </p>
+                  <p>
+                    <br />
+                    For demo purposes you can use:
+                    <ul>
+                      <li>email: demo@admin.com</li>
+                      <li>password: admin123</li>
+                    </ul>
+                  </p>
+                </div>
               )}
             </div>
           </div>

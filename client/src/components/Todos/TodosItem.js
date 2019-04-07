@@ -54,7 +54,9 @@ class TodosItem extends Component {
         </h6>
         <p>
           {!editMode ? (
-            <b>{notes}</b>
+            <b>
+              <i className="blue-text text-darken-2">{notes}</i>
+            </b>
           ) : (
             <input
               type="text"

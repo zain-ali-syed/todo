@@ -8,6 +8,7 @@ export const getHeader = () => {
 };
 
 export const loginUser = (email, password) => {
+  console.log('Login user to ', api.LOGIN_USER);
   return axios.post(api.LOGIN_USER, { email, password });
 };
 

@@ -1,4 +1,4 @@
-const SERVER_URL = 'http://localhost:3000/api';
+const SERVER_URL = 'https://zainsyed-todo.herokuapp.com/api';
 
 export default {
   GET_TODOS: `${SERVER_URL}/todos`,
