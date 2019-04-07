@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import { connect } from 'react-redux';
 import M from 'materialize-css';
 import Isemail from 'isemail';
-import { loginUser } from '../../snippet';
+import { loginUser } from '../../api/apiCalls';
 import Form from './Form';
 
 class Login extends Component {
@@ -29,8 +29,10 @@ class Login extends Component {
     if (!Isemail.validate(email)) {
       errorMessages.push('Please enter a valid email');
     }
-    if (password.length < 3)
-      errorMessages.push('Please enter a valid password');
+    if (password.length < 6)
+      errorMessages.push(
+        'Please enter a valid password of at least 4 characters'
+      );
 
     if (errorMessages.length === 0) {
       return true;
@@ -49,7 +51,7 @@ class Login extends Component {
 
     const response = await loginUser(email, password);
     if (response.data.success) {
-      const { email } = jwt_decode(response.data.token);
+      const { email } = jwtDecode(response.data.token);
       this.props.loggedIn({ email, token: response.data.token });
 
       this.props.history.push('/todos');
@@ -73,6 +75,7 @@ class Login extends Component {
           password={this.state.password}
           title="Login Details"
           buttonText="Login"
+          type="login"
         />
         {this.state.errors.map(error => (
           <div className="center-align" key={error}>

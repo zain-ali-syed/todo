@@ -1,33 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import Logo from '../images/logo.png';
 
-
-
-const Nav = ({email, logOut}) => {
-    return (
-          <nav>
-            <div className="nav-wrapper">
-              <a href="#" className="brand-logo">{email && <b>{email}</b>}</a>
-              <ul id="nav-mobile" className="right hide-on-med-and-down">
-                { email && <li onClick={logOut}>Logout</li> }    
-              </ul>
-            </div>
-        </nav>
-       
-    );
+const Nav = ({ email, logOut }) => {
+  return (
+    <nav>
+      <a href="#!" className="brand-logo center hide-on-small-only">
+        <img src={Logo} alt="logo" />
+      </a>
+      <div className="nav-wrapper">
+        <span className="navTitle">{email && <b>{email}</b>}</span>
+        <span className="navTitle right">
+          {email && <span onClick={logOut}>Logout</span>}
+        </span>
+      </div>
+    </nav>
+  );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     email: state.email
-  }
-}
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    logOut: () => dispatch({ type: "LOGOUT_USER" })
-  }
-}
+    logOut: () => dispatch({ type: 'LOGOUT_USER' })
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Nav);

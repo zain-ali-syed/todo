@@ -1,24 +1,25 @@
 const userModel = require('../models/user');
 const generateJWT = require('../jwt_token').generateJWT;
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-const cookieDays = (days) => {
-    var today = new Date();
-    var resultDate = new Date(today);
-    resultDate.setDate(today.getDate() + days);
-    return resultDate;
-}
+
 
 const registerUser = async(req, res) => {
     const {email, password} = req.body;
-    const user = await userModel.registerUser({email, password});
-    res.send(user)
+    
+    bcrypt.hash(password, saltRounds, async (err, hash) => {
+        // Store hash in your password DB.
+        const user = await userModel.registerUser({email, password:hash});
+        res.send(user)
+      });    
 }
 
 
 const loginUser = async(req, res) => {
     const { email, password } = req.body;
     const user = await userModel.loginUser({email, password});
-    
+
     if(!user) { 
         res.send({ success: false })
         return;
@@ -26,8 +27,7 @@ const loginUser = async(req, res) => {
 
     //generate jsonwebtoken
     const token = generateJWT(user);
-    console.log("user loggedin ", email)
-    console.log("token ", token)
+
     res.status(200).send({ success: true, token, email });
 }
 

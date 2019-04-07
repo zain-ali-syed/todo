@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import M from 'materialize-css';
-import { registerUser } from '../../snippet';
+import Isemail from 'isemail';
+import { registerUser } from '../../api/apiCalls';
 import Form from './Form';
 
 class Register extends Component {
@@ -21,6 +22,8 @@ class Register extends Component {
   handleSubmit = async e => {
     const { email, password } = this.state;
     e.preventDefault();
+    if (!this.formValid()) return;
+
     const response = await registerUser(email, password);
     if (!response.data.email) {
       this.setState(prevState => ({
@@ -30,6 +33,28 @@ class Register extends Component {
       // send user to login page after registration
       this.props.history.push('/login');
     }
+  };
+
+  formValid = () => {
+    const { email, password } = this.state;
+    const errorMessages = [];
+    this.setState({ errors: [] });
+
+    if (!Isemail.validate(email)) {
+      errorMessages.push('Please enter a valid email');
+    }
+    if (password.length < 4)
+      errorMessages.push(
+        'Please enter a valid password of at least 4 characters'
+      );
+
+    if (errorMessages.length === 0) {
+      return true;
+    }
+
+    this.setState(() => ({ errors: errorMessages }));
+
+    return false;
   };
 
   render() {
@@ -42,8 +67,13 @@ class Register extends Component {
           password={this.state.password}
           title="Registration Details"
           buttonText="Register"
+          type="register"
         />
-        <div className="center-align">{this.state.errors}</div>
+        {this.state.errors.map(error => (
+          <div className="center-align" key={error}>
+            {error}
+          </div>
+        ))}
       </>
     );
   }

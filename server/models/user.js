@@ -1,5 +1,7 @@
 require('../db.js')
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const Schema = mongoose.Schema;
 
 //User schema and model
@@ -15,8 +17,13 @@ const userAlreadyExists = async (email) => {
 }
 
 const checkLoginCredentials = async({email, password}) => {
-    const userFound = await usersModel.findOne({email, password});
-    return userFound;
+    const user = await usersModel.findOne({email});
+    if(user) {
+        const match = await bcrypt.compare(password, user.password);
+        if(match) return user;
+        else return null;
+    }
+    return user;
 }
 
 const registerUser = async ({email, password}) =>

@@ -8,7 +8,6 @@ import Login from './components/LoginRegister/Login';
 import PrivateRoute from './components/PrivateRoute';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
-import Test from './Test';
 
 class App extends Component {
   render() {
@@ -40,7 +39,6 @@ class App extends Component {
               loggedIn={this.props.loggedIn}
               component={Login}
             />
-            <Route path="/test" component={Test} />
           </Switch>
         </BrowserRouter>
       </Layout>

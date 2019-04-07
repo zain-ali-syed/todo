@@ -4,7 +4,7 @@ class AddTodo extends Component {
   state = {
     title: '',
     notes: '',
-    dueDate: ''
+    errors: []
   };
 
   handleChange = e => {
@@ -13,9 +13,26 @@ class AddTodo extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const { title, notes, dueDate } = this.state;
-    const addedTodo = this.props.addTodo(title, notes, dueDate);
-    if (addedTodo) this.setState({ title: '', notes: '', dueDate: '' });
+    if (!this.formValid()) return;
+    const { title, notes } = this.state;
+    const addedTodo = this.props.addTodo(title, notes);
+    if (addedTodo) this.setState({ title: '', notes: '' });
+  };
+
+  formValid = () => {
+    const { title } = this.state;
+    const errorMessages = [];
+    this.setState({ errors: [] });
+
+    if (!title.length) errorMessages.push('Please enter a todo item');
+
+    if (errorMessages.length === 0) {
+      return true;
+    }
+
+    this.setState(() => ({ errors: errorMessages }));
+
+    return false;
   };
 
   render() {
@@ -26,7 +43,8 @@ class AddTodo extends Component {
           backgroundColor: 'white',
           padding: '10px 50px',
           borderRadius: '10px',
-          marginTop: '10px'
+          marginTop: '10px',
+          border: '1px solid #e1e1e1'
         }}
       >
         <form className="col s12" onSubmit={this.handleSubmit}>
@@ -53,12 +71,17 @@ class AddTodo extends Component {
             </div>
 
             <div className="row">
-              <button className="btn blue accent-2 col s12" type="submit">
+              <button className="btn grey darken-4 col s12" type="submit">
                 Add Todo
               </button>
             </div>
           </div>
         </form>
+        {this.state.errors.map(error => (
+          <div className="center-align" key={error}>
+            {error}
+          </div>
+        ))}
       </div>
     );
   }

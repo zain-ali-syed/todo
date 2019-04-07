@@ -1,5 +1,5 @@
 import axios from 'axios';
-import api from './api';
+import api from './apiConstants';
 
 // for server routes that need authorization we send the JWT in the authorisation header
 export const getHeader = () => {
@@ -16,7 +16,6 @@ export const registerUser = (email, password) => {
 };
 
 export const getTodos = () => {
-  console.log("get todos ", getHeader())
   return axios.get(api.GET_TODOS, { headers: getHeader() });
 };
 

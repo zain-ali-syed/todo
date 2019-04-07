@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { getTodos, deleteTodo, addTodo, editTodo } from '../../snippet';
+import { getTodos, deleteTodo, addTodo, editTodo } from '../../api/apiCalls';
 import TodosItem from './TodosItem';
 import AddTodo from './AddTodo';
 
@@ -60,8 +60,6 @@ class TodosList extends Component {
   };
 
   render() {
-    console.log('render of todos logged in ', this.props.loggedIn);
-
     if (this.props.loggedIn === 'no') {
       this.props.history.push('/login');
     }
@@ -70,18 +68,24 @@ class TodosList extends Component {
     if (!todos.length && !todosCompleted) return <div>Loading</div>;
 
     return (
-      <>
+      <div className="todoPage">
         <h5>Add a new todo!</h5>
 
         <AddTodo addTodo={this.handleAddTodo} />
-        <h5>Still Todo!</h5>
+        <h5>Pending</h5>
 
-        <ul className="collection">{this.renderTodos(todos)}</ul>
+        <ul className="collection">
+          {todos.length ? this.renderTodos(todos) : <p>No pending todos</p>}
+        </ul>
         <h5>Completed Todos</h5>
         <ul className="collection completedTodos">
-          {this.renderTodos(todosCompleted)}
+          {todosCompleted.length ? (
+            this.renderTodos(todosCompleted)
+          ) : (
+            <p>No completed todos</p>
+          )}
         </ul>
-      </>
+      </div>
     );
   }
 }
