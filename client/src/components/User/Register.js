@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { registerUser } from '../../snippet';
 
-axios.defaults.withCredentials = false;
-
-const apiURL = 'http://127.0.0.1:3000/api/login';
-
-class Login extends Component {
+class Register extends Component {
   state = {
     email: '',
     password: '',
@@ -16,19 +12,11 @@ class Login extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
+    const { email, password } = this.state;
     e.preventDefault();
-    this.login(this.state);
-  };
-
-  login = ({ email, password }) => {
-    axios
-      .post(apiURL, {
-        email,
-        password
-      })
-      .then(res => console.log('got back ', res))
-      .catch(error => console.log('the error ', error));
+    const response = await registerUser(email, password);
+    console.log(response);
   };
 
   render() {
@@ -55,11 +43,11 @@ class Login extends Component {
         </div>
 
         <div className="button-section">
-          <input type="submit" value="Login" />
+          <input type="submit" value="Register" />
         </div>
       </form>
     );
   }
 }
 
-export default Login;
+export default Register;

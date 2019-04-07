@@ -19,10 +19,10 @@ const checkLoginCredentials = async({email, password}) => {
     return userFound;
 }
 
-const addUser = async ({email, password}) =>
+const registerUser = async ({email, password}) =>
 {
     const userExists = await userAlreadyExists(email);
-    if(userExists) return "I'm sorry a user with that email is already registered";
+    if(userExists) return {success:false, message:"I'm sorry a user with that email is already registered"};
     
     const newUser = new usersModel({email, password})
     return newUser.save()
@@ -36,5 +36,5 @@ const loginUser = async ({email, password}) =>
 
 
 
-module.exports = { addUser, loginUser };
+module.exports = { registerUser, loginUser };
 

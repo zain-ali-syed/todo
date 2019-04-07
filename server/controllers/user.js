@@ -8,9 +8,9 @@ const cookieDays = (days) => {
     return resultDate;
 }
 
-const addUser = async(req, res) => {
+const registerUser = async(req, res) => {
     const {email, password} = req.body;
-    const user = await userModel.addUser({email, password});
+    const user = await userModel.registerUser({email, password});
     res.send(user)
 }
 
@@ -18,6 +18,7 @@ const addUser = async(req, res) => {
 const loginUser = async(req, res) => {
     const { email, password } = req.body;
     const user = await userModel.loginUser({email, password});
+    
     if(!user) { 
         res.send({ success: false })
         return;
@@ -25,9 +26,10 @@ const loginUser = async(req, res) => {
 
     //generate jsonwebtoken
     const token = generateJWT(user);
-    res.cookie('access_token', token, {expires: cookieDays(7), httpOnly:false, secure:false, SameSite:false, sameSite:false, domain:"http://127.0.0.1:3001/" });
-    res.status(200).send({ success: true });
+    console.log("user loggedin ", email)
+    console.log("token ", token)
+    res.status(200).send({ success: true, token, email });
 }
 
-module.exports = { addUser, loginUser }
+module.exports = { registerUser, loginUser }
 

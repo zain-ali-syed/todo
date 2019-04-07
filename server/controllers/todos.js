@@ -17,8 +17,8 @@ const addTodo =  async (req, res) =>
 
 const editTodo =  async (req, res) =>
 {
-    const {id, title, notes, completed, dueDate} = req.body;
-    const todos =  await todosModel.editTodo(id, title, notes, completed, dueDate);
+    const {id, title, notes, completed} = req.body;
+    const todos =  await todosModel.editTodo(id, title, notes, completed);
     res.send(todos);
 }
 
