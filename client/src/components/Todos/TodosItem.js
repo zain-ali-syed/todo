@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// This component doubles up as a Todo EDITING component as well. Therefore define state and toggleEdit for this component
 class TodosItem extends Component {
   state = {
     editMode: false,
@@ -7,8 +8,6 @@ class TodosItem extends Component {
     title: this.props.title,
     notes: this.props.notes,
     completed: this.props.completed,
-    deleteTodo: this.props.deleteTodo,
-    editTodo: this.props.editTodo,
     completedTodo: this.props.completedTodo
   };
 
@@ -28,15 +27,8 @@ class TodosItem extends Component {
   };
 
   render() {
-    const {
-      editMode,
-      id,
-      title,
-      notes,
-      completed,
-      deleteTodo,
-      editTodo
-    } = this.state;
+    const { editMode, id, title, notes, completed } = this.state;
+    const { deleteTodo, editTodo } = this.props;
 
     return (
       <li className="collection-item">

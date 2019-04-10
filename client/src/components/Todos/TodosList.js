@@ -12,7 +12,6 @@ class TodosList extends Component {
   };
 
   componentDidMount() {
-    console.log('TODO mounted');
     this.fetchTodos();
   }
 
