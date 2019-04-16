@@ -53,7 +53,6 @@ class Login extends Component {
     if (response.data.success) {
       const { email } = jwtDecode(response.data.token);
       this.props.loggedIn({ email, token: response.data.token });
-
       this.props.history.push('/todos');
     } else {
       this.setState(prevState => ({

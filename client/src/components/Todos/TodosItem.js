@@ -84,7 +84,7 @@ class TodosItem extends Component {
         </label>
         <hr />
         <button
-          className="btn grey darken-4"
+          className="btn green darken-3 waves-effect waves-light"
           type="button"
           onClick={() => deleteTodo(id)}
           style={{ marginRight: '10px' }}
@@ -93,7 +93,7 @@ class TodosItem extends Component {
         </button>
         {!editMode ? (
           <button
-            className="btn grey darken-4"
+            className="btn green darken-3 waves-effect waves-light"
             type="button"
             onClick={this.toggleEditMode}
           >
@@ -102,7 +102,7 @@ class TodosItem extends Component {
           </button>
         ) : (
           <button
-            className="btn grey darken-4"
+            className="btn green darken-3 waves-effect waves-light"
             type="button"
             onClick={() => {
               this.setState({ editMode: false });

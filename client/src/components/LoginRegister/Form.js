@@ -12,7 +12,7 @@ const Form = ({
 }) => {
   return (
     <div className="valign-wrapper row login-box login">
-      <div className="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4 ">
+      <div className="col card s10 pull-s1 m6 pull-m3 l4 pull-l4 ">
         <form onSubmit={handleSubmit} noValidate>
           <div className="card-content">
             <h5>{title}</h5>
@@ -37,7 +37,10 @@ const Form = ({
                   value={password}
                 />
               </div>
-              <button className="btn grey darken-4 col s12" type="submit">
+              <button
+                className="btn green darken-3 waves-effect waves-light col s12"
+                type="submit"
+              >
                 {buttonText}
               </button>
             </div>

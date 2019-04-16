@@ -71,7 +71,10 @@ class AddTodo extends Component {
             </div>
 
             <div className="row">
-              <button className="btn grey darken-4 col s12" type="submit">
+              <button
+                className="btn green darken-3 waves-effect waves-light col s12"
+                type="submit"
+              >
                 Add Todo
               </button>
             </div>
