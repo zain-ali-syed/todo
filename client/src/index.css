@@ -23,6 +23,11 @@ button {
   margin-top: 200px;
 }
 
+.login-button:hover {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
 .todoPage {
   padding-top: 145px;
 }
