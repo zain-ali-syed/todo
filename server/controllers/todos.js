@@ -10,8 +10,8 @@ const getTodosByUserId = async (req, res) =>
 const addTodo =  async (req, res) =>
 {
     const { id } = req.body.user;
-    const {title, notes} = req.body;
-    const todos =  await todosModel.addTodo(id, title, notes);
+    const {title, notes, dueDate} = req.body;
+    const todos =  await todosModel.addTodo(id, title, notes, dueDate);
     res.send(todos);
 }
 

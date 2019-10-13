@@ -2,25 +2,32 @@ require('../db.js')
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//todos schema and model
-const todosSchema = new Schema({ title: String, notes: String, completed: Boolean, userId: String });
+//todos schema and model!
+const todosSchema = new Schema({ title: String, notes: String, completed: Boolean, dateCreated:Date, userId: String });
 const todosModel = mongoose.model('todos', todosSchema, 'todos');
 
 
 const getTodosByUserId = (userId) =>
 {
-    return todosModel.find({userId})
+    return todosModel.find({userId}).sort('-dateCreated')
 }
 
-const addTodo = async (userId, title, notes) =>
+const addTodo = async (userId, title, notes, dateCreated = new Date()) =>
 {
-    const newTodo =  new todosModel({title, notes, completed: false, userId })
+    const newTodo =  new todosModel({title, notes, completed: false, dateCreated, userId })
     return newTodo.save()
 }
 
 const editTodo =  (id, title, notes, completed) =>
 {
-    const updatedTodo = todosModel.findByIdAndUpdate(id, { title, notes, completed }, {new:true});
+
+    //check if the a whole todo is being updated or just the completion flag
+    let updateObj;
+
+    if(title) updateObj = {title, notes, completed}
+    else updateObj = {completed}
+
+    const updatedTodo = todosModel.findByIdAndUpdate(id, updateObj, {new:true});
     return updatedTodo;
 }
 

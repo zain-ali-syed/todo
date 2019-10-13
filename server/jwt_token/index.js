@@ -7,12 +7,11 @@ const generateJWT = ({id, email}) => {
 }
 
 const verifyJWT = (req, res, next) => {
-    
-    //check if cookies are being sent and there is an access JWT token
-    if(req.cookies && req.cookies.access_token) {
-        const token = req.cookies.access_token;
+    const bearerHeader = req.headers['authorization'];
 
-        //now verify the token
+    if(bearerHeader){
+
+        const token = bearerHeader.split(' ')[1];
         jwt.verify(token, JWT_SECRET, (err, decodedUser) => {
             if(err) {
                 res.sendStatus(403);
@@ -22,8 +21,9 @@ const verifyJWT = (req, res, next) => {
             }
           });
 
-    }else{
+    } else{
         //no access to this route
+        console.log("No token header found ")
         res.sendStatus(403);
     }
 
