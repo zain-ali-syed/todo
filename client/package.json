@@ -6,7 +6,7 @@
     "axios": "^0.18.0",
     "isemail": "^3.2.0",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
